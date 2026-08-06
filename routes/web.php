@@ -1,8 +1,10 @@
+
 <?php
 
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\EmployeeController;
 use App\Http\Controllers\Admin\EmployeeImportController;
+use App\Http\Controllers\Admin\EmployeeAttendanceController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -24,4 +26,7 @@ Route::prefix('admin')->group(function () {
 
     Route::get('/employees/export', [EmployeeController::class, 'export'])
         ->name('employees.export');
+
+    Route::resource('employee-attendances', EmployeeAttendanceController::class);
 });
+```
