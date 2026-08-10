@@ -1,12 +1,15 @@
+
 <?php
 
 namespace App\Http\Controllers\Admin;
 
+use App\Exports\EmployeeAttendancesExport;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\EmployeeAttendanceRequest;
 use App\Models\Employee;
 use App\Models\EmployeeAttendance;
 use Illuminate\Http\Request;
+use Maatwebsite\Excel\Facades\Excel;
 
 class EmployeeAttendanceController extends Controller
 {
@@ -107,6 +110,18 @@ class EmployeeAttendanceController extends Controller
         return redirect()
             ->route('employee-attendances.index')
             ->with('success', 'تم تحديث سجل الحضور بنجاح.');
+    }
+
+
+    /**
+     * تصدير سجلات الحضور إلى Excel.
+     */
+    public function export(Request $request)
+    {
+        return Excel::download(
+            new EmployeeAttendancesExport($request->all()),
+            'employee-attendances.xlsx'
+        );
     }
 
 

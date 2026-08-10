@@ -70,12 +70,26 @@ Route::prefix('admin')->group(function () {
 
     /*
     |--------------------------------------------------------------------------
+    | Employee Attendances Export
+    |--------------------------------------------------------------------------
+    */
+
+    Route::get('/employee-attendances/export', [
+        EmployeeAttendanceController::class,
+        'export'
+    ])->name('employee-attendances.export');
+
+
+    /*
+    |--------------------------------------------------------------------------
     | Employee Attendances
     |--------------------------------------------------------------------------
     */
 
-    Route::resource('employee-attendances', EmployeeAttendanceController::class);
+    Route::resource(
+        'employee-attendances',
+        EmployeeAttendanceController::class
+    );
 
 });
-
 

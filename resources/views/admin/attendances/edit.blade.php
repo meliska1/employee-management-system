@@ -4,36 +4,23 @@
 @section('content')
 
 <div class="d-flex justify-content-between align-items-center mb-4">
-
     <h2>تعديل سجل الحضور</h2>
 
     <a href="{{ route('employee-attendances.index') }}"
        class="btn btn-secondary">
         العودة لسجلات الحضور
     </a>
-
 </div>
 
-
-{{-- أخطاء التحقق --}}
 @if($errors->any())
-
     <div class="alert alert-danger">
-
         <ul class="mb-0">
-
             @foreach($errors->all() as $error)
-
                 <li>{{ $error }}</li>
-
             @endforeach
-
         </ul>
-
     </div>
-
 @endif
-
 
 <form action="{{ route('employee-attendances.update', $attendance) }}"
       method="POST">
@@ -41,10 +28,8 @@
     @csrf
     @method('PUT')
 
-
     {{-- الموظف --}}
     <div class="mb-3">
-
         <label for="employee_id" class="form-label">
             الموظف
         </label>
@@ -57,32 +42,25 @@
         >
 
             @foreach($employees as $employee)
-
                 <option
                     value="{{ $employee->id }}"
                     {{ old('employee_id', $attendance->employee_id) == $employee->id ? 'selected' : '' }}
                 >
                     {{ $employee->full_name }}
                 </option>
-
             @endforeach
 
         </select>
 
         @error('employee_id')
-
             <div class="invalid-feedback">
                 {{ $message }}
             </div>
-
         @enderror
-
     </div>
-
 
     {{-- التاريخ --}}
     <div class="mb-3">
-
         <label for="attendance_date" class="form-label">
             تاريخ الحضور
         </label>
@@ -97,19 +75,14 @@
         >
 
         @error('attendance_date')
-
             <div class="invalid-feedback">
                 {{ $message }}
             </div>
-
         @enderror
-
     </div>
-
 
     {{-- الحالة --}}
     <div class="mb-3">
-
         <label for="status" class="form-label">
             حالة الحضور
         </label>
@@ -154,19 +127,14 @@
         </select>
 
         @error('status')
-
             <div class="invalid-feedback">
                 {{ $message }}
             </div>
-
         @enderror
-
     </div>
-
 
     {{-- وقت الدخول --}}
     <div class="mb-3">
-
         <label for="check_in" class="form-label">
             وقت الدخول
         </label>
@@ -180,19 +148,14 @@
         >
 
         @error('check_in')
-
             <div class="invalid-feedback">
                 {{ $message }}
             </div>
-
         @enderror
-
     </div>
-
 
     {{-- وقت الخروج --}}
     <div class="mb-3">
-
         <label for="check_out" class="form-label">
             وقت الخروج
         </label>
@@ -206,19 +169,14 @@
         >
 
         @error('check_out')
-
             <div class="invalid-feedback">
                 {{ $message }}
             </div>
-
         @enderror
-
     </div>
-
 
     {{-- دقائق التأخير --}}
     <div class="mb-3">
-
         <label for="late_minutes" class="form-label">
             دقائق التأخير
         </label>
@@ -233,19 +191,14 @@
         >
 
         @error('late_minutes')
-
             <div class="invalid-feedback">
                 {{ $message }}
             </div>
-
         @enderror
-
     </div>
-
 
     {{-- دقائق الخروج المبكر --}}
     <div class="mb-3">
-
         <label for="early_leave_minutes" class="form-label">
             دقائق الخروج المبكر
         </label>
@@ -260,19 +213,14 @@
         >
 
         @error('early_leave_minutes')
-
             <div class="invalid-feedback">
                 {{ $message }}
             </div>
-
         @enderror
-
     </div>
-
 
     {{-- الملاحظات --}}
     <div class="mb-3">
-
         <label for="notes" class="form-label">
             ملاحظات
         </label>
@@ -285,15 +233,11 @@
         >{{ old('notes', $attendance->notes) }}</textarea>
 
         @error('notes')
-
             <div class="invalid-feedback">
                 {{ $message }}
             </div>
-
         @enderror
-
     </div>
-
 
     {{-- الأزرار --}}
     <button type="submit" class="btn btn-primary">
@@ -308,4 +252,3 @@
 </form>
 
 @endsection
-
