@@ -1,7 +1,11 @@
+
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
+
 <head>
+
     <meta charset="UTF-8">
+
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <title>لوحة التحكم | نظام إدارة الموظفين</title>
@@ -9,6 +13,7 @@
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 
     <style>
+
         body {
             margin: 0;
             font-family: Tahoma, Arial, sans-serif;
@@ -74,6 +79,33 @@
             font-size: 22px;
             color: #123a63;
             margin: 0 0 20px;
+        }
+
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+            margin-bottom: 35px;
+        }
+
+        .stat-card {
+            background: white;
+            border-radius: 18px;
+            padding: 24px;
+            box-shadow: 0 8px 24px rgba(15, 23, 42, 0.08);
+            border-top: 5px solid #1d5d96;
+        }
+
+        .stat-title {
+            color: #64748b;
+            margin-bottom: 10px;
+            font-size: 15px;
+        }
+
+        .stat-number {
+            font-size: 32px;
+            font-weight: bold;
+            color: #123a63;
         }
 
         .cards {
@@ -173,6 +205,8 @@
         }
 
         @media (max-width: 900px) {
+
+            .stats,
             .cards {
                 grid-template-columns: 1fr;
             }
@@ -185,88 +219,237 @@
                 font-size: 20px;
             }
         }
+
     </style>
+
 </head>
+
 
 <body>
 
-    <header class="navbar">
-        <h1>نظام إدارة الموظفين</h1>
+    {{-- شريط التنقل --}}
+
+    <nav class="navbar">
+
+        <h1>
+            نظام إدارة الموظفين
+        </h1>
 
         <div class="admin-box">
             المستخدم: مدير النظام
         </div>
-    </header>
+
+    </nav>
+
+
+    {{-- محتوى الصفحة --}}
 
     <main class="page">
 
+        {{-- الترحيب --}}
+
         <section class="welcome">
-            <h2>مرحبًا بك في لوحة التحكم</h2>
+
+            <h2>
+                مرحبًا بك في لوحة التحكم
+            </h2>
 
             <p>
-                يمكنك من خلال هذه الصفحة الوصول إلى أقسام النظام وإدارة بيانات الموظفين
-                ومتابعة الحضور والتقارير بسهولة.
+                يمكنك من خلال هذه الصفحة إدارة بيانات الموظفين
+                ومتابعة الحضور والانصراف والتقارير.
             </p>
+
         </section>
 
-        <h2 class="section-title">أقسام النظام</h2>
+
+        {{-- الإحصائيات --}}
+
+        <h2 class="section-title">
+            إحصائيات اليوم
+        </h2>
+
+
+        <section class="stats">
+
+            <div class="stat-card">
+
+                <div class="stat-title">
+                    إجمالي الموظفين
+                </div>
+
+                <div class="stat-number">
+                    {{ $totalEmployees }}
+                </div>
+
+            </div>
+
+
+            <div class="stat-card">
+
+                <div class="stat-title">
+                    الحاضرون اليوم
+                </div>
+
+                <div class="stat-number">
+                    {{ $todayPresent }}
+                </div>
+
+            </div>
+
+
+            <div class="stat-card">
+
+                <div class="stat-title">
+                    الغائبون اليوم
+                </div>
+
+                <div class="stat-number">
+                    {{ $todayAbsent }}
+                </div>
+
+            </div>
+
+
+            <div class="stat-card">
+
+                <div class="stat-title">
+                    المتأخرون اليوم
+                </div>
+
+                <div class="stat-number">
+                    {{ $todayLate }}
+                </div>
+
+            </div>
+
+        </section>
+
+
+        {{-- أقسام النظام --}}
+
+        <h2 class="section-title">
+            أقسام النظام
+        </h2>
+
 
         <section class="cards">
 
-            <article class="card">
-                <div class="card-icon">👥</div>
+            {{-- الموظفين --}}
 
-                <h3>إدارة الموظفين</h3>
+            <article class="card">
+
+                <div class="card-icon">
+                    👥
+                </div>
+
+                <h3>
+                    إدارة الموظفين
+                </h3>
 
                 <p>
                     إضافة الموظفين وعرض بياناتهم وتعديلها وتنظيم ملفاتهم داخل النظام.
                 </p>
 
-                <a href="#">فتح القسم</a>
+                <a href="{{ route('employees.index') }}">
+                    فتح القسم
+                </a>
+
             </article>
 
-            <article class="card">
-                <div class="card-icon">📅</div>
 
-                <h3>الحضور والانصراف</h3>
+            {{-- الحضور --}}
+
+            <article class="card">
+
+                <div class="card-icon">
+                    📅
+                </div>
+
+                <h3>
+                    الحضور والانصراف
+                </h3>
 
                 <p>
                     متابعة سجلات حضور الموظفين والغياب والتأخير والإجازات اليومية.
                 </p>
 
-                <a href="#">فتح القسم</a>
+                <a href="{{ route('employee-attendances.index') }}">
+                    فتح القسم
+                </a>
+
             </article>
 
-            <article class="card">
-                <div class="card-icon">📄</div>
 
-                <h3>التقارير</h3>
+            {{-- التقارير --}}
+
+            <article class="card">
+
+                <div class="card-icon">
+                    📄
+                </div>
+
+                <h3>
+                    تقارير الموظفين
+                </h3>
 
                 <p>
-                    استعراض تقارير الموظفين وسجلات الحضور وتصدير البيانات عند الحاجة.
+                    استعراض بيانات الموظفين وإمكانية تصدير البيانات حسب الحاجة.
                 </p>
 
-                <a href="#">فتح القسم</a>
+                <a href="{{ route('employees.index') }}">
+                    فتح القسم
+                </a>
+
             </article>
 
         </section>
 
+
+        {{-- الوصول السريع --}}
+
         <section class="quick-access">
-            <h2 class="section-title">الوصول السريع</h2>
+
+            <h2 class="section-title">
+                الوصول السريع
+            </h2>
+
 
             <div class="quick-links">
-                <a href="#">إضافة موظف جديد</a>
-                <a href="#">عرض قائمة الموظفين</a>
-                <a href="#">تسجيل الحضور</a>
-                <a href="#">عرض التقارير</a>
+
+                <a href="{{ route('employees.create') }}">
+                    إضافة موظف جديد
+                </a>
+
+
+                <a href="{{ route('employees.index') }}">
+                    عرض قائمة الموظفين
+                </a>
+
+
+                <a href="{{ route('employee-attendances.create') }}">
+                    تسجيل الحضور
+                </a>
+
+
+                <a href="{{ route('employee-attendances.index') }}">
+                    عرض سجلات الحضور
+                </a>
+
             </div>
+
         </section>
 
     </main>
 
+
     <footer>
-        جميع الحقوق محفوظة © {{ date('Y') }} — نظام إدارة الموظفين
+
+        جميع الحقوق محفوظة © {{ date('Y') }}
+        — نظام إدارة الموظفين
+
     </footer>
 
 </body>
+
 </html>
+

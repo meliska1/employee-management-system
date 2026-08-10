@@ -27,6 +27,9 @@ class EmployeeAttendance extends Model
         'attendance_date' => 'date',
     ];
 
+    /**
+     * الموظف صاحب سجل الحضور
+     */
     public function employee(): BelongsTo
     {
         return $this->belongsTo(Employee::class);
